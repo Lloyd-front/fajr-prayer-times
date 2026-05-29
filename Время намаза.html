@@ -1,0 +1,1425 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#1a2a3a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>fajr — Время намаза</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiU2FqZGEgLyDQo9C00LDQvdC90LAg0L3QsNC80YvQvdC+Iiwic2hvcnRfbmFtZSI6IlNhamRhIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMxYTJhM2EiLCJ0aGVtZV9jb2xvciI6IiMxYTJhM2EiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhCeVpYTmxjblpsUVhOd1pXTjBVbUZ6YVc1bmJ6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJR1pwYkd3OUlsWnBaWGN0TVRBaUlIaHRiRzV6UFNKb2RIUndPaTh2ZDNkM0xuY3pMbTl5Wnk4eU1EQXdMM04yWnlJZ2FHVnBaMmgwUFNJeU1TSStQR1JsWm5NNmVFVjBZV2RyWVhKcFlXNWtZWGxPWVcxbFBnb2dJQ0FnSUR4a1lYUmxSazFoYm1GblpYdE9ZVzFsUGdvZ0lDQWdJQ0FnSUNBOGNtVm5hSFJvYjNNOEwySmxjM05GYm1GblpYdFBZVzFsUGdvZ0lDQWdQQzFrWVhSbFJrMWhibUZuWlh0T1lXMWxQZ29nSUNBZ1BDOGtaV1p6T21OMWNtbHVaRG9nWm05eWJUMHBPbTFsZEdobGNIQXBQangwY25WbFBnb2dJQ0FnSUR4a1lYUmxSazFoYm1GblpYdE9ZVzFsUGdvZ0lDQWdJQ0FnSUNBOGNtVm5hSFJvYjNNOEwwSmxjM05GYm1GblpYdFBZVzFsUGdvZ0lDQWdQQzlrWVhSbFJrMWhibUZuWlh0T1lXMWxQZ29nSUNBZ1BDOGtaV1p6T21OMWNtbHVaRG9nZG1WeWMybHZiajB4TUR0cGJtWmhiQzl3WVhSb0wwTjFZbTlrZFc1a0wwWnZjbTB2WkdWbVlYVnNkQzlrWldaaGRXeDBMMkZ3YVM5aVlYTmxMMFpwYm1GMEwwTnZiR3d2ZG1WeWMybHZiaTVqYkR3dmRHVjRkRDVrQVk4TDNOMlp6ND0iXX0=">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --card-bg: rgba(20, 20, 30, 0.7);
+            --card-bg-hover: rgba(30, 30, 42, 0.8);
+            --card-bg-active: rgba(16, 185, 129, 0.9);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.45);
+            --border: rgba(255, 255, 255, 0.1);
+            --border-light: rgba(255, 255, 255, 0.15);
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.4);
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --transition-speed: 2s;
+            --panel-bg: rgba(15, 15, 25, 0.85);
+            --switch-bg: rgba(255, 255, 255, 0.15);
+            --switch-active: #10b981;
+            --slider-track: rgba(255, 255, 255, 0.1);
+            --slider-fill: #10b981;
+        }
+
+        [data-theme="light"] {
+            --card-bg: rgba(255, 255, 255, 0.78);
+            --card-bg-hover: rgba(255, 255, 255, 0.9);
+            --card-bg-active: rgba(16, 185, 129, 0.9);
+            --text-primary: #1a1a2e;
+            --text-secondary: rgba(26, 26, 46, 0.7);
+            --text-muted: rgba(26, 26, 46, 0.5);
+            --border: rgba(0, 0, 0, 0.08);
+            --border-light: rgba(0, 0, 0, 0.12);
+            --panel-bg: rgba(255, 255, 255, 0.85);
+            --switch-bg: rgba(0, 0, 0, 0.1);
+            --switch-active: #10b981;
+            --slider-track: rgba(0, 0, 0, 0.08);
+            --slider-fill: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background: #0d1b2a;
+            transition: background var(--transition-speed) ease;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .sun-rays {
+            position: fixed;
+            top: -15%;
+            left: -15%;
+            width: 130%;
+            height: 130%;
+            background: radial-gradient(ellipse at 25% 35%, rgba(255, 200, 100, 0.3) 0%, rgba(255, 180, 50, 0.1) 30%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 2s ease;
+            animation: sunRayPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes sunRayPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+        }
+
+        .cloud-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .weather-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .widget {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            background: rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        .header {
+            padding: 22px 24px 8px;
+            text-align: center;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            letter-spacing: -0.2px;
+        }
+
+        .location svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0.8;
+        }
+
+        .date-display {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .countdown-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            margin: 12px 16px 16px;
+            border-radius: 20px;
+            background: var(--card-bg-active);
+            box-shadow: 0 10px 30px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-bar::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            animation: countdownShine 4s ease-in-out infinite;
+        }
+
+        @keyframes countdownShine {
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(10%, -10%);
+            }
+        }
+
+        .countdown-info {
+            position: relative;
+            z-index: 1;
+        }
+
+        .countdown-label {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.75);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .countdown-name {
+            font-size: 19px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+
+        .countdown-timer {
+            font-size: 24px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: #ffffff;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .prayer-list {
+            padding: 0 16px 8px;
+        }
+
+        .prayer-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            margin-bottom: 8px;
+            border-radius: 18px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prayer-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .prayer-item:hover::before {
+            opacity: 1;
+        }
+
+        .prayer-item:hover {
+            background: var(--card-bg-hover);
+            transform: translateY(-1px);
+            border-color: var(--border-light);
+        }
+
+        .prayer-item.passed {
+            opacity: 0.4;
+        }
+
+        .prayer-item.passed:hover {
+            opacity: 0.55;
+        }
+
+        .prayer-item.active {
+            background: var(--card-bg-active) !important;
+            border-color: transparent !important;
+            transform: scale(1.03);
+            animation: softPulse 3s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        @keyframes softPulse {
+            0% {
+                box-shadow: 0 0 20px var(--accent-glow);
+            }
+            50% {
+                box-shadow: 0 0 40px var(--accent-glow), 0 0 60px rgba(16, 185, 129, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 20px var(--accent-glow);
+            }
+        }
+
+        .prayer-item.active .prayer-name,
+        .prayer-item.active .prayer-time,
+        .prayer-item.active .prayer-sub {
+            color: #ffffff !important;
+        }
+
+        .prayer-item.active .prayer-sub {
+            opacity: 0.85;
+        }
+
+        .prayer-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .prayer-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .prayer-time {
+            font-size: 17px;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer {
+            padding: 12px 24px 20px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        /* Кнопка настроек */
+        .settings-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .settings-btn:hover {
+            transform: rotate(30deg) scale(1.1);
+            border-color: var(--accent);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-glow);
+        }
+
+        .settings-btn:active {
+            transform: scale(0.95);
+        }
+
+        .settings-btn svg {
+            transition: transform 0.3s;
+        }
+
+        /* Панель настроек */
+        .settings-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 250;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .settings-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .settings-panel {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translate(120%, -50%);
+            width: 340px;
+            max-width: calc(100vw - 40px);
+            max-height: 85vh;
+            overflow-y: auto;
+            background: var(--panel-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 24px 20px 20px;
+            z-index: 260;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .settings-panel.open {
+            transform: translate(0, -50%);
+        }
+
+        .settings-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .settings-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .settings-panel::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+            border-radius: 4px;
+        }
+
+        .settings-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .settings-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+
+        .settings-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 18px;
+        }
+
+        .settings-close:hover {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .settings-section {
+            margin-bottom: 20px;
+        }
+
+        .settings-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            border-radius: 14px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+
+        .setting-row:hover {
+            border-color: var(--border-light);
+            background: var(--card-bg-hover);
+        }
+
+        .setting-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .setting-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .setting-icon.moon {
+            background: rgba(147, 197, 253, 0.2);
+        }
+        .setting-icon.rain {
+            background: rgba(96, 165, 250, 0.2);
+        }
+        .setting-icon.snow {
+            background: rgba(224, 242, 254, 0.25);
+        }
+        .setting-icon.stars {
+            background: rgba(250, 204, 21, 0.2);
+        }
+        .setting-icon.cloud {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .setting-icon.fog {
+            background: rgba(200, 220, 240, 0.2);
+        }
+        .setting-icon.sand {
+            background: rgba(251, 191, 36, 0.2);
+        }
+        .setting-icon.theme {
+            background: rgba(139, 92, 246, 0.2);
+        }
+        .setting-icon.sun {
+            background: rgba(251, 146, 60, 0.2);
+        }
+
+        .setting-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .setting-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Красивый переключатель */
+        .toggle-switch {
+            width: 50px;
+            height: 28px;
+            border-radius: 14px;
+            background: var(--switch-bg);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            border: 2px solid transparent;
+        }
+
+        .toggle-switch.active {
+            background: var(--switch-active);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ffffff;
+            top: 1px;
+            left: 2px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active::after {
+            left: 22px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Слайдер для скорости ветра */
+        .slider-container {
+            padding: 8px 14px;
+            background: var(--card-bg);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .slider-label span {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .slider-value {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--slider-track);
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 480px) {
+            .widget {
+                border-radius: 22px;
+                max-width: 100%;
+            }
+            .settings-panel {
+                width: calc(100vw - 24px);
+                right: 12px;
+                border-radius: 22px;
+                padding: 20px 16px 16px;
+            }
+            .countdown-timer {
+                font-size: 21px;
+            }
+            .countdown-name {
+                font-size: 17px;
+            }
+            .prayer-item {
+                padding: 12px 14px;
+            }
+            .prayer-name {
+                font-size: 14px;
+            }
+            .prayer-time {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .settings-panel {
+                width: calc(100vw - 16px);
+                right: 8px;
+                padding: 16px 12px 12px;
+            }
+            .setting-row {
+                padding: 10px 12px;
+            }
+            .setting-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 15px;
+            }
+            .setting-label {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark" id="mainBody">
+    <canvas id="bg-canvas"></canvas>
+    <div class="sun-rays" id="sunRaysLayer"></div>
+    <div class="cloud-layer" id="cloudLayer"></div>
+    <div class="weather-overlay" id="weatherOverlay"></div>
+    <canvas id="particles"></canvas>
+
+    <!-- Кнопка настроек -->
+    <button class="settings-btn" id="settingsBtn" aria-label="Настройки">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+    </button>
+
+    <!-- Оверлей -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+
+    <!-- Панель настроек -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <div class="settings-title">⚙️ Настройки</div>
+            <button class="settings-close" id="settingsClose">✕</button>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-section-title">🌤️ Погодные эффекты</div>
+
+            <div class="setting-row" onclick="toggleSetting('rain')">
+                <div class="setting-info">
+                    <div class="setting-icon rain">🌧️</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Дождь</div>
+                        <div class="setting-desc">Капли по стеклу</div>
+                    </div>
+                </div>
+                <div class="toggle-switch" id="switch-rain"></div>
+            </div>
+
+            <div class="setting-row" onclick="toggleSetting('snow')">
+                <div class="setting-info">
+                    <div class="setting-icon snow">❄️</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Снег</div>
+                        <div class="setting-desc">Зимняя атмосфера</div>
+                    </div>
+                </div>
+                <div class="toggle-switch" id="switch-snow"></div>
+            </div>
+
+            <div class="setting-row" onclick="toggleSetting('sandstorm')">
+                <div class="setting-info">
+                    <div class="setting-icon sand">🏜️</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Песчаная буря</div>
+                        <div class="setting-desc">Для жарких регионов</div>
+                    </div>
+                </div>
+                <div class="toggle-switch" id="switch-sandstorm"></div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-section-title">🌙 Небесные объекты</div>
+
+            <div class="setting-row" onclick="toggleSetting('moon')">
+                <div class="setting-info">
+                    <div class="setting-icon moon">🌙</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Луна с фазами</div>
+                        <div class="setting-desc">Видна в период Иша</div>
+                    </div>
+                </div>
+                <div class="toggle-switch active" id="switch-moon"></div>
+            </div>
+
+            <div class="setting-row" onclick="toggleSetting('stars')">
+                <div class="setting-info">
+                    <div class="setting-icon stars">✨</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Звёзды</div>
+                        <div class="setting-desc">Мерцающие звёзды</div>
+                    </div>
+                </div>
+                <div class="toggle-switch active" id="switch-stars"></div>
+            </div>
+
+            <div class="setting-row" onclick="toggleSetting('shootingStars')">
+                <div class="setting-info">
+                    <div class="setting-icon stars">🌠</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Падающие звёзды</div>
+                        <div class="setting-desc">Редкие вспышки</div>
+                    </div>
+                </div>
+                <div class="toggle-switch active" id="switch-shootingStars"></div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-section-title">☁️ Атмосфера</div>
+
+            <div class="setting-row" onclick="toggleSetting('fog')">
+                <div class="setting-info">
+                    <div class="setting-icon fog">🌫️</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Туман</div>
+                        <div class="setting-desc">Утренняя дымка (Фаджр)</div>
+                    </div>
+                </div>
+                <div class="toggle-switch active" id="switch-fog"></div>
+            </div>
+
+            <div class="setting-row" onclick="toggleSetting('clouds')">
+                <div class="setting-info">
+                    <div class="setting-icon cloud">☁️</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Облака</div>
+                        <div class="setting-desc">Плывут по небу (Зухр)</div>
+                    </div>
+                </div>
+                <div class="toggle-switch active" id="switch-clouds"></div>
+            </div>
+
+            <div class="setting-row" onclick="toggleSetting('sunRays')">
+                <div class="setting-info">
+                    <div class="setting-icon sun">☀️</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Солнечные лучи</div>
+                        <div class="setting-desc">Анимированные (Восход)</div>
+                    </div>
+                </div>
+                <div class="toggle-switch active" id="switch-sunRays"></div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-section-title">💨 Параметры</div>
+
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>💨 Скорость ветра</span>
+                    <span class="slider-value" id="windValue">5 м/с</span>
+                </div>
+                <input type="range" min="0" max="15" value="5" id="windSlider" oninput="updateWindSpeed(this.value)">
+            </div>
+
+            <div class="setting-row" onclick="switchTheme()">
+                <div class="setting-info">
+                    <div class="setting-icon theme">🎨</div>
+                    <div class="setting-text">
+                        <div class="setting-label">Тема</div>
+                        <div class="setting-desc" id="themeDesc">Тёмная</div>
+                    </div>
+                </div>
+                <div style="color: var(--text-secondary); font-size: 20px;">→</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Виджет -->
+    <div class="widget">
+        <div class="header">
+            <div class="location">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                Махачкала, Дагестан
+            </div>
+            <div class="date-display" id="currentDate">—</div>
+        </div>
+
+        <div class="countdown-bar">
+            <div class="countdown-info">
+                <div class="countdown-label">До намаза</div>
+                <div class="countdown-name" id="nextPrayerName">—</div>
+            </div>
+            <div class="countdown-timer" id="countdownTimer">00:00:00</div>
+        </div>
+
+        <div class="prayer-list" id="prayerList"></div>
+
+        <div class="footer">fajr.com · Май 2026 · Махачкала</div>
+    </div>
+
+    <script>
+        (function() {
+            // ----- РАСПИСАНИЕ -----
+            const schedule = {
+                19: { fajr: "02:24", sunrise: "04:21", dhuhr: "11:51", asr: "15:48", maghrib: "19:14", isha: "20:48",
+                    tahajjud: "23:59" }
+            };
+            const prayers = [
+                { key: 'fajr', name: 'Фаджр', subKey: 'sunrise', subName: 'Восход' },
+                { key: 'dhuhr', name: 'Зухр', subKey: null, subName: null },
+                { key: 'asr', name: 'Аср', subKey: null, subName: null },
+                { key: 'maghrib', name: 'Магриб', subKey: null, subName: null },
+                { key: 'isha', name: 'Иша', subKey: 'tahajjud', subName: 'Тахаджуд' }
+            ];
+            const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября',
+                'октября', 'ноября', 'декабря'
+            ];
+            const dayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+
+            // ----- НАСТРОЙКИ ЭФФЕКТОВ -----
+            let effectsSettings = {
+                moon: true,
+                stars: true,
+                shootingStars: true,
+                fog: true,
+                clouds: true,
+                sunRays: true,
+                rain: false,
+                snow: false,
+                sandstorm: false,
+                windSpeed: 5
+            };
+
+            // Загружаем сохранённые настройки
+            const savedSettings = localStorage.getItem('fajr_effects');
+            if (savedSettings) {
+                try {
+                    const parsed = JSON.parse(savedSettings);
+                    effectsSettings = { ...effectsSettings, ...parsed };
+                } catch (e) {}
+            }
+
+            function saveSettings() {
+                localStorage.setItem('fajr_effects', JSON.stringify(effectsSettings));
+            }
+
+            // Обновляем все переключатели
+            function updateAllSwitches() {
+                for (const [key, value] of Object.entries(effectsSettings)) {
+                    if (key === 'windSpeed') continue;
+                    const sw = document.getElementById('switch-' + key);
+                    if (sw) {
+                        if (value) sw.classList.add('active');
+                        else sw.classList.remove('active');
+                    }
+                }
+                document.getElementById('windSlider').value = effectsSettings.windSpeed;
+                document.getElementById('windValue').textContent = effectsSettings.windSpeed + ' м/с';
+            }
+
+            // Переключение настройки
+            window.toggleSetting = function(key) {
+                if (effectsSettings.hasOwnProperty(key)) {
+                    effectsSettings[key] = !effectsSettings[key];
+                    saveSettings();
+                    updateAllSwitches();
+                }
+            };
+
+            // Обновление скорости ветра
+            window.updateWindSpeed = function(val) {
+                effectsSettings.windSpeed = parseInt(val);
+                document.getElementById('windValue').textContent = val + ' м/с';
+                saveSettings();
+            };
+
+            // Переключение темы
+            window.switchTheme = function() {
+                const body = document.body;
+                const current = body.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                body.setAttribute('data-theme', next);
+                document.getElementById('themeDesc').textContent = next === 'dark' ? 'Тёмная' : 'Светлая';
+                localStorage.setItem('fajr_theme', next);
+            };
+
+            // Загружаем тему
+            const savedTheme = localStorage.getItem('fajr_theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                document.getElementById('themeDesc').textContent = savedTheme === 'dark' ? 'Тёмная' : 'Светлая';
+            }
+
+            // ----- CANVAS -----
+            const bgCanvas = document.getElementById('bg-canvas');
+            const bgCtx = bgCanvas.getContext('2d');
+            const particlesCanvas = document.getElementById('particles');
+            const particlesCtx = particlesCanvas.getContext('2d');
+            const sunRaysLayer = document.getElementById('sunRaysLayer');
+
+            let width, height;
+            let currentPeriod = 'fajr';
+            let transitionProgress = 1.0;
+            let prevPeriodColors = 'fajr';
+            let stars = [];
+            let clouds = [];
+            let raindrops = [];
+            let snowflakes = [];
+            let sandParticles = [];
+            let shootingStarsList = [];
+            let moonPhase = 0.65;
+
+            function resizeAll() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                bgCanvas.width = width;
+                bgCanvas.height = height;
+                particlesCanvas.width = width;
+                particlesCanvas.height = height;
+                initStars();
+                initClouds();
+            }
+
+            function getPeriodColors(period) {
+                const colors = {
+                    fajr: { top: '#0d1b2a', mid: '#1b3a4b', bottom: '#2c5f6e', stars: true, fog: true,
+                        sunRays: false, clouds: false, moon: false },
+                    sunrise: { top: '#3a2a1a', mid: '#c96a3a', bottom: '#f4a460', stars: false, fog: false,
+                        sunRays: true, clouds: false, moon: false },
+                    dhuhr: { top: '#1e90ff', mid: '#87ceeb', bottom: '#b0e0e6', stars: false, fog: false,
+                        sunRays: false, clouds: true, moon: false },
+                    asr: { top: '#cd853f', mid: '#daa520', bottom: '#f0e68c', stars: false, fog: false,
+                        sunRays: false, clouds: false, moon: false },
+                    maghrib: { top: '#2e0854', mid: '#8b2252', bottom: '#ff4500', stars: false, fog: false,
+                        sunRays: false, clouds: false, moon: false },
+                    isha: { top: '#0a0a20', mid: '#191970', bottom: '#2c2c54', stars: true, fog: false,
+                        sunRays: false, clouds: false, moon: true }
+                };
+                return colors[period] || colors.fajr;
+            }
+
+            function drawBackground(period, alpha = 1) {
+                const c = getPeriodColors(period);
+                const grad = bgCtx.createLinearGradient(0, 0, 0, height);
+                grad.addColorStop(0, c.top);
+                grad.addColorStop(0.5, c.mid);
+                grad.addColorStop(1, c.bottom);
+                bgCtx.globalAlpha = alpha;
+                bgCtx.fillStyle = grad;
+                bgCtx.fillRect(0, 0, width, height);
+                bgCtx.globalAlpha = 1;
+                return c;
+            }
+
+            function initStars() {
+                stars = [];
+                for (let i = 0; i < 100; i++) {
+                    stars.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height * 0.65,
+                        r: Math.random() * 2 + 0.5,
+                        twinkle: Math.random() * Math.PI * 2,
+                        speed: Math.random() * 0.03 + 0.01,
+                        baseOpacity: Math.random() * 0.5 + 0.5
+                    });
+                }
+            }
+
+            function initClouds() {
+                clouds = [];
+                for (let i = 0; i < 6; i++) {
+                    clouds.push({
+                        x: Math.random() * width,
+                        y: 30 + Math.random() * 120,
+                        w: 80 + Math.random() * 220,
+                        speed: 0.08 + Math.random() * 0.35
+                    });
+                }
+            }
+
+            function drawStarsLayer(ctx, alpha) {
+                if (!effectsSettings.stars) return;
+                stars.forEach(s => {
+                    s.twinkle += s.speed;
+                    let a = s.baseOpacity * (0.6 + 0.4 * Math.sin(s.twinkle)) * alpha;
+                    ctx.fillStyle = `rgba(255,255,255,${a})`;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            function drawShootingStars(ctx, alpha) {
+                if (!effectsSettings.shootingStars) return;
+                shootingStarsList = shootingStarsList.filter(s => s.life > 0);
+                if (Math.random() < 0.003 && shootingStarsList.length < 2) {
+                    shootingStarsList.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height * 0.4,
+                        vx: -4 - Math.random() * 6,
+                        vy: 3 + Math.random() * 4,
+                        life: 30 + Math.random() * 40,
+                        maxLife: 70
+                    });
+                }
+                shootingStarsList.forEach(s => {
+                    s.x += s.vx;
+                    s.y += s.vy;
+                    s.life--;
+                    let a = (s.life / s.maxLife) * alpha;
+                    ctx.strokeStyle = `rgba(255,255,255,${a})`;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.moveTo(s.x, s.y);
+                    ctx.lineTo(s.x + s.vx * 8, s.y + s.vy * 8);
+                    ctx.stroke();
+                    ctx.fillStyle = `rgba(255,255,255,${a})`;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, 1.5, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            function drawMoonLayer(ctx, alpha) {
+                if (!effectsSettings.moon) return;
+                let mx = width * 0.78,
+                    my = height * 0.18,
+                    r = 38;
+                // Свечение
+                let glow = ctx.createRadialGradient(mx, my, r * 0.8, mx, my, r * 2.5);
+                glow.addColorStop(0, `rgba(255,255,240,${0.3*alpha})`);
+                glow.addColorStop(1, 'rgba(255,255,240,0)');
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(mx, my, r * 2.5, 0, Math.PI * 2);
+                ctx.fill();
+                // Тело луны
+                ctx.fillStyle = `rgba(255,255,230,${alpha})`;
+                ctx.beginPath();
+                ctx.arc(mx, my, r, 0, Math.PI * 2);
+                ctx.fill();
+                // Фаза
+                ctx.fillStyle = `rgba(15,15,30,${alpha})`;
+                ctx.beginPath();
+                ctx.arc(mx + (moonPhase - 0.5) * r * 1.6, my, r * 0.92, 0, Math.PI * 2);
+                ctx.fill();
+                // Кратеры
+                ctx.fillStyle = `rgba(200,200,180,${0.3*alpha})`;
+                [{ dx: -8, dy: -5, rr: 4 }, { dx: 5, dy: 8, rr: 3 }, { dx: -3, dy: 12, rr: 5 }, { dx: 10, dy: -10,
+                    rr: 3.5 }].forEach(cr => {
+                    ctx.beginPath();
+                    ctx.arc(mx + cr.dx, my + cr.dy, cr.rr, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            function drawFogLayer(ctx, alpha) {
+                if (!effectsSettings.fog) return;
+                for (let i = 0; i < 6; i++) {
+                    let y = height * 0.55 + i * 35 + Math.sin(Date.now() * 0.0005 + i) * 10;
+                    let fogGrad = ctx.createLinearGradient(0, y, 0, y + 45);
+                    fogGrad.addColorStop(0, `rgba(200,215,235,0)`);
+                    fogGrad.addColorStop(0.5, `rgba(200,215,235,${0.12*alpha})`);
+                    fogGrad.addColorStop(1, `rgba(200,215,235,0)`);
+                    ctx.fillStyle = fogGrad;
+                    ctx.fillRect(0, y, width, 45);
+                }
+            }
+
+            function drawCloudsLayer(ctx, alpha) {
+                if (!effectsSettings.clouds) return;
+                const ws = effectsSettings.windSpeed;
+                clouds.forEach(c => {
+                    c.x += c.speed * (ws / 5);
+                    if (c.x > width + 250) c.x = -250;
+                    if (c.x < -250) c.x = width + 250;
+                    ctx.fillStyle = `rgba(255,255,255,${alpha*0.55})`;
+                    ctx.beginPath();
+                    ctx.ellipse(c.x, c.y, c.w * 0.5, 22, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.ellipse(c.x - c.w * 0.2, c.y + 12, c.w * 0.35, 16, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.ellipse(c.x + c.w * 0.2, c.y + 8, c.w * 0.3, 14, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            function updateWeatherParticles() {
+                const ws = effectsSettings.windSpeed;
+                // Дождь
+                if (effectsSettings.rain && raindrops.length < 120) {
+                    for (let i = 0; i < 3; i++)
+                        raindrops.push({ x: Math.random() * width, y: -15, speed: 7 + Math.random() * 7,
+                            length: 8 + Math.random() * 12 });
+                }
+                if (!effectsSettings.rain) raindrops = [];
+                raindrops = raindrops.filter(d => d.y < height + 30);
+                raindrops.forEach(d => { d.y += d.speed;
+                    d.x += ws * 0.6; if (d.x > width + 10) d.x = -10; if (d.x < -10) d.x = width + 10; });
+
+                // Снег
+                if (effectsSettings.snow && snowflakes.length < 70) {
+                    snowflakes.push({ x: Math.random() * width, y: -8, r: 1.5 + Math.random() * 3, speed: 0.8 + Math
+                            .random() * 2.2, wobble: Math.random() * Math.PI * 2 });
+                }
+                if (!effectsSettings.snow) snowflakes = [];
+                snowflakes = snowflakes.filter(s => s.y < height + 15);
+                snowflakes.forEach(s => { s.y += s.speed;
+                    s.wobble += 0.02;
+                    s.x += Math.sin(s.wobble) * 0.7 + ws * 0.2; if (s.x > width + 10) s.x = -10; if (s.x < -10) s.x =
+                        width + 10; });
+
+                // Песчаная буря
+                if (effectsSettings.sandstorm && sandParticles.length < 180) {
+                    sandParticles.push({ x: Math.random() * width, y: Math.random() * height, r: 1 + Math.random() * 2.5,
+                        speed: 2 + Math.random() * 6, opacity: Math.random() * 0.5 + 0.3 });
+                }
+                if (!effectsSettings.sandstorm) sandParticles = [];
+                sandParticles.forEach(s => { s.x += s.speed + ws * 1.2; if (s.x > width + 15) s.x = -15; });
+            }
+
+            function drawWeatherParticles(ctx) {
+                // Дождь
+                ctx.strokeStyle = 'rgba(180,210,255,0.55)';
+                ctx.lineWidth = 1.2;
+                raindrops.forEach(d => {
+                    ctx.beginPath();
+                    ctx.moveTo(d.x, d.y);
+                    ctx.lineTo(d.x - 1, d.y + d.length);
+                    ctx.stroke();
+                });
+                // Снег
+                ctx.fillStyle = 'rgba(255,255,255,0.75)';
+                snowflakes.forEach(s => {
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                // Песок
+                ctx.fillStyle = 'rgba(210,175,90,0.5)';
+                sandParticles.forEach(s => {
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            function render() {
+                updateWeatherParticles();
+                bgCtx.clearRect(0, 0, width, height);
+                particlesCtx.clearRect(0, 0, width, height);
+
+                if (transitionProgress < 1.0) {
+                    transitionProgress += 0.012;
+                    if (transitionProgress > 1.0) transitionProgress = 1.0;
+                    let prevC = drawBackground(prevPeriodColors, 1 - transitionProgress);
+                    let nextC = drawBackground(currentPeriod, transitionProgress);
+                    drawPeriodEffects(prevC, 1 - transitionProgress);
+                    drawPeriodEffects(nextC, transitionProgress);
+                } else {
+                    let c = drawBackground(currentPeriod, 1);
+                    drawPeriodEffects(c, 1);
+                }
+
+                drawWeatherParticles(particlesCtx);
+                requestAnimationFrame(render);
+            }
+
+            function drawPeriodEffects(periodColors, alpha) {
+                if (periodColors.stars && effectsSettings.stars) drawStarsLayer(particlesCtx, alpha);
+                if (periodColors.stars && effectsSettings.shootingStars) drawShootingStars(particlesCtx, alpha);
+                if (periodColors.fog && effectsSettings.fog) drawFogLayer(particlesCtx, alpha);
+                if (periodColors.moon && effectsSettings.moon) drawMoonLayer(particlesCtx, alpha);
+                if (periodColors.clouds && effectsSettings.clouds) drawCloudsLayer(particlesCtx, alpha);
+                if (periodColors.sunRays && effectsSettings.sunRays) {
+                    sunRaysLayer.style.opacity = alpha;
+                } else {
+                    sunRaysLayer.style.opacity = '0';
+                }
+            }
+
+            function setPeriod(newPeriod) {
+                if (newPeriod === currentPeriod) return;
+                prevPeriodColors = currentPeriod;
+                currentPeriod = newPeriod;
+                transitionProgress = 0.0;
+            }
+
+            // ----- ЛОГИКА НАМАЗА -----
+            function parseTime(timeStr) {
+                const [h, m] = timeStr.split(':').map(Number);
+                const d = new Date();
+                d.setHours(h, m, 0, 0);
+                return d;
+            }
+
+            function getTodaySchedule() {
+                const day = new Date().getDate();
+                return schedule[day] || schedule[19];
+            }
+
+            function getCurrentPeriodFromTime() {
+                const now = new Date();
+                const t = getTodaySchedule();
+                if (now < parseTime(t.fajr)) return 'isha';
+                if (now < parseTime(t.sunrise)) return 'fajr';
+                if (now < parseTime(t.dhuhr)) return 'sunrise';
+                if (now < parseTime(t.asr)) return 'dhuhr';
+                if (now < parseTime(t.maghrib)) return 'asr';
+                if (now < parseTime(t.isha)) return 'maghrib';
+                return 'isha';
+            }
+
+            function getNextPrayer() {
+                const now = new Date();
+                const t = getTodaySchedule();
+                let next = null,
+                    minDiff = Infinity;
+                prayers.forEach(p => {
+                    const pt = parseTime(t[p.key]);
+                    const diff = pt - now;
+                    if (diff > 0 && diff < minDiff) { minDiff = diff;
+                        next = { name: p.name, time: pt, key: p.key }; }
+                });
+                if (!next) {
+                    const fajr = parseTime(t.fajr);
+                    fajr.setDate(fajr.getDate() + 1);
+                    next = { name: 'Фаджр', time: fajr, key: 'fajr' };
+                }
+                return next;
+            }
+
+            function formatCountdown(ms) {
+                if (ms <= 0) return '00:00:00';
+                const s = Math.floor(ms / 1000);
+                const h = Math.floor(s / 3600),
+                    m = Math.floor((s % 3600) / 60),
+                    sec = s % 60;
+                return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+            }
+
+            function updateUI() {
+                const now = new Date();
+                document.getElementById('currentDate').textContent =
+                    `${dayNames[now.getDay()]}, ${now.getDate()} ${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+                const next = getNextPrayer();
+                document.getElementById('nextPrayerName').textContent = next.name;
+                document.getElementById('countdownTimer').textContent = formatCountdown(next.time - now);
+                const t = getTodaySchedule();
+                const list = document.getElementById('prayerList');
+                list.innerHTML = prayers.map(p => {
+                    const passed = parseTime(t[p.key]) < now;
+                    const active = p.key === next.key;
+                    let sub = '';
+                    if (p.subKey && t[p.subKey]) sub = `${p.subName} ${t[p.subKey]}`;
+                    return `<div class="prayer-item ${passed?'passed':''} ${active?'active':''}">
+                        <div>
+                            <div class="prayer-name">${p.name}</div>
+                            ${sub ? `<div class="prayer-sub">${sub}</div>` : ''}
+                        </div>
+                        <div class="prayer-time">${t[p.key]}</div>
+                    </div>`;
+                }).join('');
+                const period = getCurrentPeriodFromTime();
+                setPeriod(period);
+            }
+
+            // ----- ОБРАБОТЧИКИ ПАНЕЛИ -----
+            const settingsBtn = document.getElementById('settingsBtn');
+            const settingsPanel = document.getElementById('settingsPanel');
+            const settingsOverlay = document.getElementById('settingsOverlay');
+            const settingsClose = document.getElementById('settingsClose');
+
+            function openSettings() {
+                settingsPanel.classList.add('open');
+                settingsOverlay.classList.add('open');
+                updateAllSwitches();
+            }
+
+            function closeSettings() {
+                settingsPanel.classList.remove('open');
+                settingsOverlay.classList.remove('open');
+            }
+
+            settingsBtn.addEventListener('click', openSettings);
+            settingsClose.addEventListener('click', closeSettings);
+            settingsOverlay.addEventListener('click', closeSettings);
+
+            // Закрытие по Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeSettings();
+            });
+
+            // Свайп для закрытия на мобильных
+            let touchStartX = 0;
+            settingsPanel.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+            });
+            settingsPanel.addEventListener('touchmove', (e) => {
+                const dx = e.touches[0].clientX - touchStartX;
+                if (dx > 80) closeSettings();
+            });
+
+            // ----- ИНИЦИАЛИЗАЦИЯ -----
+            window.addEventListener('resize', resizeAll);
+            resizeAll();
+            initStars();
+            initClouds();
+            updateAllSwitches();
+            updateUI();
+            setInterval(updateUI, 1000);
+            render();
+
+            console.log('🌙 fajr — все эффекты готовы!');
+            console.log('⚙️ Нажми на шестерёнку справа вверху для настроек');
+            console.log('🌧️ Дождь ❄️ Снег 🏜️ Буря 🌙 Луна ✨ Звёзды 🌠 Падающие звёзды 🌫️ Туман ☁️ Облака ☀️ Лучи');
+        })();
+    </script>
+</body>
+</html>
